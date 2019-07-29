@@ -1,0 +1,38 @@
+macros:
+    - &linux
+      language: c
+      os: linux
+      dist: xenial
+      compiler: clang
+      addons:
+          apt:
+              packages:
+                  - ninja-build
+      install:
+          - source ~/virtualenv/python3.6/bin/activate
+          - pip install meson
+      script:
+          - meson build $MESON_OPTS
+          - ninja -C build
+
+matrix:
+    include:
+        - <<: *linux
+          env: MESON_OPTS=-Djit=true
+        - <<: *linux
+          env: MESON_OPTS=-Djit=false
+        - language: objective-c
+          osx_image: xcode10.1
+          install:
+              - pip3 install meson
+          addons:
+              homebrew:
+                  packages:
+                      - ninja
+                      - llvm
+                      - yarn
+          script:
+              - xcodebuild -project iSH.xcodeproj -scheme iSH -sdk iphoneos CODE_SIGNING_ALLOWED=NO
+    exclude:
+        - language: objective-c
+          env: MESON_OPTS=-Djit=false
