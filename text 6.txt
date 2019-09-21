@@ -1,0 +1,10 @@
+Merge branch '62-please-add-copyright-information-and-a-dfsg-license' into 'master'
+
+Resolve "Please add copyright information and a DFSG license"
+
+Closes #62
+
+See merge request salsa-ci-team/pipeline!98
+
+https://gitlab.com/Allyn69/kali-ci-pipeline.git e8c7109
+
